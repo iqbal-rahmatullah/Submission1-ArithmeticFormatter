@@ -1,6 +1,6 @@
 # Submission 1 - Arithmetic Formatter
 
-Submission ini tersinpirasi dengan [Scientific Computing with Python Projects - Arithmetic Formatter](https://www.freecodecamp.org/learn/scientific-computing-with-python/scientific-computing-with-python-projects/arithmetic-formatter)
+Submission ini tersinpirasi dengan [Scientific Computing with Python Projects - Arithmetic Formatter](https://www.freecodecamp.org/learn/scientific-computing-with-python/scientific-computing-with-python-projects/arithmetic-formatter). Kamu boleh melihat contoh implementasi dan penyelesaiannya dan mencoba menyelesaikan Submission ini.
 
 ## Storyboard
 

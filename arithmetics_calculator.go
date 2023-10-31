@@ -8,17 +8,21 @@ import (
 
 // TODO Problem 1: Buat fungsi penjumlahan
 func Add(a int, b int) int {
-	// Tulis jawabanmu disini
+	return a + b
 }
 
 // TODO Problem 2: Buat fungsi nilai maksimum
 func max(a, b int) int {
-	// Tulis jawabanmu disini
+	if a > b {
+		return a
+	}
+	return b
 }
 
 // TODO Problem 3: Buat fungsi pencarian angka
 func getNumber(s string) int {
-	// Tulis jawabanmu disini
+	number, _ := strconv.Atoi(s)
+	return number
 }
 
 func ArithmeticArranger(problems []string, val ...bool) string {
@@ -32,9 +36,10 @@ func ArithmeticArranger(problems []string, val ...bool) string {
 	// TODO Problem and Testing 1: Buat batasan dengan 5 input data
 	arrangedProblems := ""
 	// Tulis jawabanmu disini {
-		arrangedProblems = // Tulis return berdasarkan rules README.md
+	if len(problems) > 5 {
+		arrangedProblems = "Error: Too many problems."
 		return arrangedProblems
-	}
+	} // Tulis return berdasarkan rules README.md
 
 	// TODO Problem dan Testing 2: Buat batasan hanya menggunakan operator "+" dan "-"
 	operations := make([]string, len(problems))
@@ -45,11 +50,10 @@ func ArithmeticArranger(problems []string, val ...bool) string {
 	uniqueOperations := make(map[string]bool)
 	for _, op := range operations {
 		uniqueOperations[op] = true
-	}
-	
-	// Tulis jawabanmu disini {
-		arrangedProblems = // Tulis return berdasarkan rules README.md
-		return arrangedProblems
+		if op != "+" && op != "-" {
+			arrangedProblems = "Error: Operator must be '+' or '-'." // Tulis return berdasarkan rules README.md
+			return arrangedProblems
+		}
 	}
 
 	// TODO Problem dan Testing 3: Buat batasan dimana hanya terdapat angka dan tidak boleh lebih dari 4 angka
@@ -59,12 +63,12 @@ func ArithmeticArranger(problems []string, val ...bool) string {
 		numbers = append(numbers, parts[0], parts[2])
 	}
 	for _, number := range numbers {
-		// * Tulis jawabanmu disini {
-			arrangedProblems = // Tulis jawabanmu berdasarkan rules README.md
+		if _, err := strconv.Atoi(number); err != nil {
+			arrangedProblems = "Error: Numbers must only contain digits."
 			return arrangedProblems
 		}
-		// * Tulis jawabanmu disini {
-			arrangedProblems = // Tulis jawabanmu berdasarkan rules README.md
+		if len(number) > 4 {
+			arrangedProblems = "Error: Numbers cannot be more than four digits."
 			return arrangedProblems
 		}
 	}
@@ -76,16 +80,23 @@ func ArithmeticArranger(problems []string, val ...bool) string {
 	solutions := ""
 	for i := 0; i < len(numbers); i += 2 {
 		width := max(len(numbers[i]), len(numbers[i+1])) + 2
-		topRow += // Tulis jawabanmu disini
-		dashes += // Tulis jawabanmu disini
+		topRow += fmt.Sprintf("%*s", width, numbers[i])
+		if i != len(numbers)-2 {
+			topRow += "    "
+		}
+		dashes += strings.Repeat("-", width)
+		if i != len(numbers)-2 {
+			dashes += "    "
+		}
 		value, _ := strconv.Atoi(numbers[i])
 		if operations[i/2] == "+" {
 			value += getNumber(numbers[i+1])
 		} else {
 			value -= getNumber(numbers[i+1])
 		}
-		values = // Tulis jawabanmu disini
-		solutions += // Tulis jawabanmu disini
+		values = append(values, value)
+
+		solutions += fmt.Sprintf("%*d", width, value)
 		if i != len(numbers)-2 {
 			topRow += "    "
 			dashes += "    "
@@ -103,9 +114,9 @@ func ArithmeticArranger(problems []string, val ...bool) string {
 	}
 
 	if the_solutions {
-		arrangedProblems = // Tulis jawabanmu disini
+		arrangedProblems = fmt.Sprintf("%s\n%s\n%s\n%s", topRow, dashes, bottomRow, solutions)
 	} else {
-		arrangedProblems = // Tulis jawabanmu disini
+		arrangedProblems = fmt.Sprintf("%s\n%s\n%s", topRow, dashes, bottomRow)
 	}
 	return arrangedProblems
 }
